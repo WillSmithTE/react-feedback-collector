@@ -1,24 +1,24 @@
 # FeedbackWidget Props
 
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `clientId` | `string` | **Required** | Your unique client identifier. |
-| `variant` | `'slide'` \| `'popup'` | `'slide'` | Display style of the feedback widget. |
-| `position` | `'right'` \| `'left'` | `'right'` | Position of the feedback button. |
-| `button` | `'speechBubble'` \| `'semiCircle'` | `'semiCircle'` | Style of the trigger button. |
-| `theme` | `WidgetTheme` | `{}` | Custom theme object to override default styles. See [Theming](#theming) for details. |
-| `title` | `string` | `'Share Your Feedback'` | Header title for the feedback form. |
-| `placeholder` | `string` | `'Tell us what you think...'` | Placeholder text for the comment textarea. |
-| `showEmailOption` | `boolean` | `true` | Whether to show the "Share your email" checkbox. |
-| `showScreenshotOption` | `boolean` | `true` | Whether to show the screenshot upload option. |
-| `autoClose` | `boolean` | `true` | Whether to automatically close the widget after successful submission. |
-| `debug` | `boolean` | `false` | Enable debug logging to the console. |
-| `environment` | `string` | `undefined` | Custom environment tag for your feedback (e.g., 'development', 'staging'). |
-| `baseUrl` | `string` | `https://feedbee.willsmithte.com` | The base URL for the feedback API. |
-| `onSubmit` | `(feedback: FeedbackData) => void` | `undefined` | Callback function triggered on successful submission. |
-| `onError` | `(error: Error) => void` | `undefined` | Callback function triggered on any error. |
-| `onOpen` | `() => void` | `undefined` | Callback function triggered when the widget opens. |
-| `onClose` | `() => void` | `undefined` | Callback function triggered when the widget closes. |
+| Prop                   | Type                               | Default                           | Description                                                                          |
+| ---------------------- | ---------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
+| `clientId`             | `string`                           | **Required**                      | Your unique client identifier.                                                       |
+| `variant`              | `'slide'` \| `'popup'`             | `'slide'`                         | Display style of the feedback widget.                                                |
+| `position`             | `'right'` \| `'left'`              | `'right'`                         | Position of the feedback button.                                                     |
+| `button`               | `'speechBubble'` \| `'semiCircle'` | `'semiCircle'`                    | Style of the trigger button.                                                         |
+| `theme`                | `WidgetTheme`                      | `{}`                              | Custom theme object to override default styles. See [Theming](#theming) for details. |
+| `title`                | `string`                           | `'Share Your Feedback'`           | Header title for the feedback form.                                                  |
+| `placeholder`          | `string`                           | `'Tell us what you think...'`     | Placeholder text for the comment textarea.                                           |
+| `showEmailOption`      | `boolean`                          | `true`                            | Whether to show the "Share your email" checkbox.                                     |
+| `showScreenshotOption` | `boolean`                          | `true`                            | Whether to show the screenshot upload option.                                        |
+| `autoClose`            | `boolean`                          | `true`                            | Whether to automatically close the widget after successful submission.               |
+| `debug`                | `boolean`                          | `false`                           | Enable debug logging to the console.                                                 |
+| `environment`          | `string`                           | `undefined`                       | Custom environment tag for your feedback (e.g., 'development', 'staging').           |
+| `baseUrl`              | `string`                           | `https://feedbee.willsmithte.com` | The base URL for the feedback API.                                                   |
+| `onSubmit`             | `(feedback: FeedbackData) => void` | `undefined`                       | Callback function triggered on successful submission.                                |
+| `onError`              | `(error: Error) => void`           | `undefined`                       | Callback function triggered on any error.                                            |
+| `onOpen`               | `() => void`                       | `undefined`                       | Callback function triggered when the widget opens.                                   |
+| `onClose`              | `() => void`                       | `undefined`                       | Callback function triggered when the widget closes.                                  |
 
 ## Using Your Own Backend
 
@@ -83,24 +83,28 @@ Your backend will need to be configured to handle Cross-Origin Resource Sharing 
 Here is a simple example of an Express server that implements the required endpoint:
 
 ```javascript
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/api/feedback', (req, res) => {
+app.post("/api/feedback", (req, res) => {
   const feedbackData = req.body;
 
   // Your logic to save the feedback
-  console.log('Feedback received:', feedbackData);
+  console.log("Feedback received:", feedbackData);
 
   // Send a success response
-  res.json({ success: true, data: { id: '123' } });
+  res.json({ success: true, data: { id: "123" } });
 });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 ```
+
+=======
+
+Seed: 82
