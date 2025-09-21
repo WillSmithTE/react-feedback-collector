@@ -1,16 +1,16 @@
-import React from 'react';
-import { TextInputProps } from '../types';
-import { ARIA_LABELS, MAX_COMMENT_LENGTH } from '../utils/constants';
+import React from "react";
+import { TextInputProps } from "../types";
+import { ARIA_LABELS, MAX_COMMENT_LENGTH } from "../utils/constants";
 
 export const TextInput: React.FC<TextInputProps> = ({
   value,
   onChange,
   placeholder,
-  theme
+  theme,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
-    
+
     // Enforce max length
     if (newValue.length <= MAX_COMMENT_LENGTH) {
       onChange(newValue);
@@ -21,9 +21,14 @@ export const TextInput: React.FC<TextInputProps> = ({
   const isNearLimit = remainingChars < 50;
 
   return (
-    <div className="feedback-textarea-container">
+    <div>
       <textarea
-        className="feedback-textarea"
+        className="fb-ta"
+        style={{
+          border: `1px solid ${theme.border}`,
+          color: theme.text,
+          backgroundColor: theme.background,
+        }}
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
@@ -31,13 +36,13 @@ export const TextInput: React.FC<TextInputProps> = ({
         maxLength={MAX_COMMENT_LENGTH}
         rows={3}
       />
-      <div 
-        className={`feedback-char-count ${isNearLimit ? 'feedback-char-count--warning' : ''}`}
-        style={{ 
-          fontSize: '12px', 
-          color: isNearLimit ? '#dc2626' : '#6b7280',
-          textAlign: 'right',
-          marginTop: '4px'
+      <div
+        style={{
+          fontSize: "12px",
+          color: isNearLimit ? "#dc2626" : theme.text,
+          opacity: isNearLimit ? 1 : 0.6,
+          textAlign: "right",
+          marginTop: "4px",
         }}
       >
         {remainingChars} characters remaining

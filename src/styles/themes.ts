@@ -1,55 +1,5 @@
 import { WidgetTheme } from '../types';
 
-/**
- * CSS custom properties injection for theming
- */
-export function injectThemeStyles(theme: WidgetTheme, id: string = 'feedback-theme'): void {
-  if (typeof document === 'undefined') return;
-
-  // Remove existing theme
-  const existing = document.getElementById(id);
-  if (existing) {
-    existing.remove();
-  }
-
-  // Create CSS custom properties
-  const css = `
-    .feedback-widget {
-      --feedback-primary: ${theme.primary || '#ef4444'};
-      --feedback-background: ${theme.background || '#ffffff'};
-      --feedback-text: ${theme.text || '#374151'};
-      --feedback-text-muted: ${theme.text || '#374151'}80;
-      --feedback-border: ${theme.border || '#e5e7eb'};
-      --feedback-border-light: ${theme.border || '#e5e7eb'}40;
-      --feedback-shadow: ${theme.shadow || '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'};
-    }
-  `;
-
-  // Create and inject style element
-  const style = document.createElement('style');
-  style.id = id;
-  style.textContent = css;
-  document.head.appendChild(style);
-}
-
-/**
- * Inject base widget styles
- */
-export function injectBaseStyles(cssContent: string, id: string = 'feedback-base'): void {
-  if (typeof document === 'undefined') return;
-
-  // Remove existing styles
-  const existing = document.getElementById(id);
-  if (existing) {
-    existing.remove();
-  }
-
-  // Create and inject style element
-  const style = document.createElement('style');
-  style.id = id;
-  style.textContent = cssContent;
-  document.head.appendChild(style);
-}
 
 /**
  * Default theme configurations

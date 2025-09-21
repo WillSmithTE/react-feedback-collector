@@ -56,3 +56,5 @@ pids
 # Package lock files (let users choose their package manager)
 package-lock.json
 yarn.lock
+
+.gemini-clipboard

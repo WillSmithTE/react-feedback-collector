@@ -25,11 +25,13 @@ npm install react-feedback-collector
 ### 3. Add to Your React App
 
 **Import the component:**
+
 ```tsx
 import { FeedbackWidget } from "react-feedback-collector";
 ```
 
 **Add to your app:**
+
 ```tsx
 <FeedbackWidget clientId="your-client-id-from-dashboard" />
 ```
@@ -51,7 +53,6 @@ All feedback appears instantly in your dashboard at **[feedbee.willsmithte.com](
 ```tsx
 <FeedbackWidget
   clientId="your-client-id"
-  variant="slide" // "slide" | "popup" (default: "slide")
   position="right" // "right" | "left" (default: "right")
   title="Share Your Feedback"
   placeholder="Tell us what you think..."
@@ -61,11 +62,10 @@ All feedback appears instantly in your dashboard at **[feedbee.willsmithte.com](
 
 ## Props
 
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `clientId` | `string` | **Required** | Your unique client identifier. |
-| `variant` | `'slide'` \| `'popup'` | `'slide'` | Display style of the feedback widget. |
-| `position` | `'right'` \| `'left'` | `'right'` | Position of the feedback button. |
-| `title` | `string` | `'Share Your Feedback'` | Header title for the feedback form. |
+| Prop       | Type                  | Default                 | Description                         |
+| ---------- | --------------------- | ----------------------- | ----------------------------------- |
+| `clientId` | `string`              | **Required**            | Your unique client identifier.      |
+| `position` | `'right'` \| `'left'` | `'right'`               | Position of the feedback button.    |
+| `title`    | `string`              | `'Share Your Feedback'` | Header title for the feedback form. |
 
 For a full list of available props, see the [Props documentation](https://github.com/willsmithte/react-feedback-collector/blob/main/docs/PROPS.md).

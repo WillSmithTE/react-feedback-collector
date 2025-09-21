@@ -3,9 +3,8 @@
 | Prop                   | Type                               | Default                           | Description                                                                          |
 | ---------------------- | ---------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
 | `clientId`             | `string`                           | **Required**                      | Your unique client identifier.                                                       |
-| `variant`              | `'slide'` \| `'popup'`             | `'slide'`                         | Display style of the feedback widget.                                                |
 | `position`             | `'right'` \| `'left'`              | `'right'`                         | Position of the feedback button.                                                     |
-| `button`               | `'speechBubble'` \| `'semiCircle'` | `'semiCircle'`                    | Style of the trigger button.                                                         |
+| `button`               | `'semiCircle'`                     | `'semiCircle'`                    | Style of the trigger button.                                                         |
 | `theme`                | `WidgetTheme`                      | `{}`                              | Custom theme object to override default styles. See [Theming](#theming) for details. |
 | `title`                | `string`                           | `'Share Your Feedback'`           | Header title for the feedback form.                                                  |
 | `placeholder`          | `string`                           | `'Tell us what you think...'`     | Placeholder text for the comment textarea.                                           |
@@ -26,9 +25,13 @@ You can use this component with your own backend by providing the `baseUrl` prop
 
 ### API Contract
 
-Your backend must expose an endpoint that accepts a `POST` request with a JSON body conforming to the `FeedbackSubmission` type.
+Your backend must expose two endpoints: one for feedback submission and one for screenshot uploads.
 
-#### `FeedbackSubmission` Type
+#### 1. Feedback Submission
+
+Your backend must accept a `POST` request at `{baseUrl}/api/feedback` with a JSON body conforming to the `FeedbackSubmission` type.
+
+##### `FeedbackSubmission` Type
 
 ```typescript
 interface FeedbackSubmission {
@@ -41,12 +44,12 @@ interface FeedbackSubmission {
   pageTitle: string;
   referrer?: string;
   environment?: string;
-  screenshots?: ScreenshotData[];
+  screenshots?: ScreenshotData[]; // Included if screenshots are uploaded
 }
 
 interface ScreenshotData {
   fileName: string;
-  url: string;
+  url: string; // URL of the pre-uploaded screenshot
   fileSize: number;
   width?: number;
   height?: number;
@@ -74,37 +77,48 @@ Your endpoint should return a JSON response with the following structure:
 }
 ```
 
+#### 2. Screenshot Uploads
+
+If `showScreenshotOption` is true, you must also implement an endpoint to handle image uploads. The widget uploads screenshots _before_ the user submits the main feedback form.
+
+When a user selects an image, the widget sends a `POST` request with `multipart/form-data` to `{baseUrl}/api/screenshots`.
+
+Your endpoint must:
+
+1.  Accept a `POST` request with `multipart/form-data`.
+2.  The form data will contain two fields:
+    - `screenshot`: The image file.
+    - `clientId`: Your client ID.
+3.  Process and store the image (e.g., save it to a cloud storage bucket).
+4.  Return a JSON response containing the details of the uploaded file. This data will be included in the final feedback submission.
+
+**On success:**
+
+```json
+{
+  "success": true,
+  "screenshot": {
+    "fileName": "user-screenshot.png",
+    "url": "https://your-cdn.com/path/to/image.png",
+    "fileSize": 123456,
+    "mimeType": "image/png"
+  }
+}
+```
+
+**On failure:**
+
+```json
+{
+  "success": false,
+  "error": "Invalid file type"
+}
+```
+
 ### A Note on CORS
 
 Your backend will need to be configured to handle Cross-Origin Resource Sharing (CORS) to accept requests from the feedback widget, just like any other public-facing API.
 
-### Example Backend (Node.js/Express)
-
-Here is a simple example of an Express server that implements the required endpoint:
-
-```javascript
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-
-const app = express();
-app.use(bodyParser.json());
-app.use(cors());
-
-app.post("/api/feedback", (req, res) => {
-  const feedbackData = req.body;
-
-  // Your logic to save the feedback
-  console.log("Feedback received:", feedbackData);
-
-  // Send a success response
-  res.json({ success: true, data: { id: "123" } });
-});
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-```
-
-=======
+---
 
 Seed: 82

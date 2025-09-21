@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef, useMemo } from 'react';
 import { FeedbackSubmission, UseFeedbackApiReturn, SubmissionResponse } from '../types';
 import { apiClient, FeedbackApiClient } from '../utils/api';
-import { validateFeedbackSubmission, checkRateLimit } from '../utils/validation';
-import { ERROR_MESSAGES, DEFAULT_RATE_LIMIT_MAX, DEFAULT_RATE_LIMIT_WINDOW } from '../utils/constants';
+import { validateFeedbackSubmission } from '../utils/validation';
+import { ERROR_MESSAGES } from '../utils/constants';
 
 /**
  * Hook for handling feedback API operations
@@ -30,20 +30,6 @@ export function useFeedbackApi(baseUrl?: string): UseFeedbackApiReturn {
       const validation = validateFeedbackSubmission(data);
       if (!validation.isValid) {
         const error = new Error(validation.errors.join(', '));
-        setError(error);
-        return { success: false, error: error.message };
-      }
-
-      // Rate limiting check
-      const rateLimitCheck = checkRateLimit(
-        data.clientId, 
-        DEFAULT_RATE_LIMIT_MAX,
-        DEFAULT_RATE_LIMIT_WINDOW
-      );
-      
-      if (!rateLimitCheck.allowed) {
-        const remainingTime = rateLimitCheck.remainingTime || 60;
-        const error = new Error(`${ERROR_MESSAGES.RATE_LIMIT_EXCEEDED} Please wait ${remainingTime} seconds.`);
         setError(error);
         return { success: false, error: error.message };
       }
@@ -97,68 +83,10 @@ export function useFeedbackApi(baseUrl?: string): UseFeedbackApiReturn {
     }
   }, []);
 
-  // Cancel ongoing request on unmount
-  const cancelRequest = useCallback(() => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      abortControllerRef.current = null;
-      setIsLoading(false);
-    }
-  }, []);
-
-  // Clear error state
-  const clearError = useCallback(() => {
-    setError(null);
-  }, []);
-
   return {
     submitFeedback,
     isLoading,
     error,
-    // Additional utilities
-    cancelRequest,
-    clearError
-  } as UseFeedbackApiReturn & {
-    cancelRequest: () => void;
-    clearError: () => void;
   };
 }
 
-/**
- * Hook for checking API health/connectivity
- */
-export function useApiHealth(baseUrl?: string) {
-  const [isHealthy, setIsHealthy] = useState<boolean | null>(null);
-  const [isChecking, setIsChecking] = useState(false);
-
-  // Create API client instance - use custom baseUrl if provided, otherwise use singleton
-  const client = useMemo(() => {
-    if (baseUrl) {
-      return new FeedbackApiClient(baseUrl);
-    }
-    return apiClient;
-  }, [baseUrl]);
-
-  const checkHealth = useCallback(async () => {
-    setIsChecking(true);
-    
-    try {
-      const healthy = await client.checkHealth();
-      setIsHealthy(healthy);
-      return healthy;
-      
-    } catch (error) {
-      setIsHealthy(false);
-      return false;
-      
-    } finally {
-      setIsChecking(false);
-    }
-  }, [client]);
-
-  return {
-    isHealthy,
-    isChecking,
-    checkHealth
-  };
-}
