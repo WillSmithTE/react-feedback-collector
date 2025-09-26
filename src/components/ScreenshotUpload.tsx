@@ -26,14 +26,11 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file
-    if (!file.type.startsWith("image/")) {
-      setUploadError("Image files only");
-      return;
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      setUploadError("Max 10MB");
+    // Simple validation
+    if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
+      setUploadError(
+        file.size > 10 * 1024 * 1024 ? "Max 10MB" : "Image files only"
+      );
       return;
     }
 
@@ -60,9 +57,8 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
         // Add the new screenshot to the list
         onScreenshotsChange([...screenshots, result.screenshot]);
       }
-    } catch (error) {
-      console.error("Screenshot upload error:", error);
-      setUploadError(error instanceof Error ? error.message : "Upload failed");
+    } catch {
+      setUploadError("Upload failed");
     } finally {
       setIsUploading(false);
       // Reset file input
@@ -92,7 +88,9 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading || screenshots.length >= 3}
-          className={`fb-upb ${isUploading || screenshots.length >= 3 ? "fb-upb--dis" : ""}`}
+          className={`fb-upb ${
+            isUploading || screenshots.length >= 3 ? "fb-upb--dis" : ""
+          }`}
         >
           {isUploading ? (
             <>
@@ -100,17 +98,13 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
               Uploading...
             </>
           ) : (
-            <>📷 Add Screenshot</>
+            <>📷 Screenshot</>
           )}
         </button>
       </div>
 
       {/* Error Message */}
-      {uploadError && (
-        <div className="fb-upe">
-          ⚠ {uploadError}
-        </div>
-      )}
+      {uploadError && <div className="fb-upe">⚠ {uploadError}</div>}
 
       {/* Screenshot Previews */}
       {screenshots.length > 0 && (
@@ -135,12 +129,7 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
         </div>
       )}
 
-      {screenshots.length >= 3 && (
-        <div className="fb-sl">
-          Maximum 3 screenshots allowed
-        </div>
-      )}
-
+      {screenshots.length >= 3 && <div className="fb-sl">Max 3</div>}
     </div>
   );
 };

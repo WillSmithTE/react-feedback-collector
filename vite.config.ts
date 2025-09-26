@@ -54,7 +54,7 @@ export default defineConfig({
         comments: false,
       },
     },
-    target: "es2017",
+    target: "es2020",
     sourcemap: false,
   },
 });

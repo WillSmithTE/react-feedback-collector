@@ -2,32 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useFeedbackApi } from "../hooks/useFeedbackApi";
 import { mergeTheme } from "../styles/themes";
 import {
-  DEFAULT_API_URL,
   FeedbackData,
   FeedbackSubmission,
   FeedbackWidgetProps,
 } from "../types";
-import {
-  DEFAULT_PLACEHOLDER,
-  DEFAULT_POSITION,
-  DEFAULT_TITLE,
-  ERROR_MESSAGES,
-} from "../utils/constants";
 import { injectFeedbackCSS } from "../utils/styles";
 import { FeedbackButton } from "./FeedbackButton";
 import { FeedbackPanel } from "./FeedbackPanel";
 
 export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   clientId,
-  position = DEFAULT_POSITION,
-  button = "semiCircle",
+  position = "right",
   theme: customTheme,
-  title = DEFAULT_TITLE,
-  placeholder = DEFAULT_PLACEHOLDER,
+  title = "Share Feedback",
+  placeholder = "Tell us what you think... (optional)",
   showEmailOption = true,
   showScreenshotOption = true,
-  autoClose = true,
-  debug = false,
   environment,
   baseUrl,
   onSubmit,
@@ -47,47 +37,31 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
     const initialize = async () => {
       try {
         if (!clientId || clientId.length < 3) {
-          throw new Error(ERROR_MESSAGES.INVALID_CLIENT_ID);
+          throw new Error("Invalid config. Contact admin.");
         }
 
         // Inject CSS file with responsive styles
         injectFeedbackCSS();
 
         setIsInitialized(true);
-
-        if (debug) {
-          console.log("FeedbackWidget initialized", {
-            clientId,
-            position,
-            button,
-            theme,
-          });
-        }
       } catch (err) {
         const errorMessage =
-          err instanceof Error ? err.message : ERROR_MESSAGES.GENERIC_ERROR;
+          err instanceof Error ? err.message : "Error occurred. Try again.";
         setInitError(errorMessage);
 
         if (onError) {
           onError(new Error(errorMessage));
         }
-
-        if (debug) {
-          console.error("FeedbackWidget initialization failed:", err);
-        }
       }
     };
 
     initialize();
-  }, [clientId, debug, onError]);
+  }, [clientId, onError]);
 
   const handleOpen = () => {
     setIsOpen(true);
     if (onOpen) {
       onOpen();
-    }
-    if (debug) {
-      console.log("FeedbackWidget opened");
     }
   };
 
@@ -96,17 +70,10 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
     if (onClose) {
       onClose();
     }
-    if (debug) {
-      console.log("FeedbackWidget closed");
-    }
   };
 
   const handleSubmit = async (feedbackData: FeedbackData) => {
     try {
-      if (debug) {
-        console.log("Submitting feedback:", feedbackData);
-      }
-
       // Prepare submission data
       const submissionData: FeedbackSubmission = {
         clientId,
@@ -128,23 +95,15 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         if (onSubmit) {
           onSubmit(feedbackData);
         }
-
-        if (debug) {
-          console.log("Feedback submitted successfully:", response);
-        }
       } else {
-        throw new Error(response.error || ERROR_MESSAGES.GENERIC_ERROR);
+        throw new Error(response.error || "Error occurred. Try again.");
       }
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : ERROR_MESSAGES.GENERIC_ERROR;
+        err instanceof Error ? err.message : "Error occurred. Try again.";
 
       if (onError) {
         onError(new Error(errorMessage));
-      }
-
-      if (debug) {
-        console.error("Feedback submission failed:", err);
       }
 
       // Re-throw so the component can display the error
@@ -154,27 +113,6 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
 
   // Don't render if initialization failed
   if (initError) {
-    if (debug) {
-      return (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            right: "20px",
-            background: "#fee",
-            border: "1px solid #fcc",
-            padding: "10px",
-            borderRadius: "4px",
-            color: "#c44",
-            fontSize: "12px",
-            maxWidth: "300px",
-            zIndex: 10001,
-          }}
-        >
-          FeedbackWidget Error: {initError}
-        </div>
-      );
-    }
     return null;
   }
 
@@ -189,7 +127,6 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
       <FeedbackButton
         onClick={handleOpen}
         position={position}
-        button={button}
         theme={theme}
         isOpen={isOpen}
       />
@@ -205,7 +142,7 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         showScreenshotOption={showScreenshotOption}
         theme={theme}
         position={position}
-        baseUrl={baseUrl || DEFAULT_API_URL}
+        baseUrl={baseUrl || "https://feedbee.willsmithte.com"}
         clientId={clientId}
       />
     </div>

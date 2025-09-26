@@ -296,7 +296,6 @@ const FEEDBACK_CSS = `
   font-size: 18px;
   transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   z-index: 9998;
-  background: linear-gradient(135deg, #2563eb, #14b8a6);
   color: #ffffff;
   top: 50%;
   transform: translateY(-50%);
@@ -477,6 +476,4 @@ export const injectFeedbackCSS = () => {
   style.textContent = FEEDBACK_CSS;
   document.head.appendChild(style);
 
-  // Debug log
-  console.log("Feedback CSS injected:", style.textContent.length, "characters");
 };

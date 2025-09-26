@@ -2,7 +2,6 @@ import { useState, useCallback, useRef, useMemo } from 'react';
 import { FeedbackSubmission, UseFeedbackApiReturn, SubmissionResponse } from '../types';
 import { apiClient, FeedbackApiClient } from '../utils/api';
 import { validateFeedbackSubmission } from '../utils/validation';
-import { ERROR_MESSAGES } from '../utils/constants';
 
 /**
  * Hook for handling feedback API operations
@@ -52,7 +51,7 @@ export function useFeedbackApi(baseUrl?: string): UseFeedbackApiReturn {
         setError(null);
       } else {
         // Set error if submission failed
-        const error = new Error(response.error || ERROR_MESSAGES.GENERIC_ERROR);
+        const error = new Error(response.error || "Error occurred. Try again.");
         setError(error);
       }
       
@@ -60,15 +59,15 @@ export function useFeedbackApi(baseUrl?: string): UseFeedbackApiReturn {
       
     } catch (err) {
       // Handle network errors, timeouts, etc.
-      let errorMessage: string = ERROR_MESSAGES.GENERIC_ERROR;
-      
+      let errorMessage: string = "Error occurred. Try again.";
+
       if (err instanceof Error) {
         if (err.name === 'AbortError') {
           errorMessage = 'Request was cancelled';
         } else if (err.message.includes('fetch')) {
-          errorMessage = ERROR_MESSAGES.NETWORK_ERROR;
+          errorMessage = 'Connection error. Try again.';
         } else {
-          errorMessage = err.message || ERROR_MESSAGES.GENERIC_ERROR;
+          errorMessage = err.message || "Error occurred. Try again.";
         }
       }
       

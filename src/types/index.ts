@@ -40,14 +40,13 @@ export interface FeedbackData {
 }
 
 export type WidgetPosition = "right" | "left";
-export type ButtonStyle = "semiCircle";
 
 export interface WidgetTheme {
-  primary?: string;
-  background?: string;
-  text?: string;
-  border?: string;
-  shadow?: string;
+  primary: string;
+  background: string;
+  text: string;
+  border: string;
+  shadow: string;
 }
 
 export interface FeedbackWidgetProps {
@@ -56,10 +55,9 @@ export interface FeedbackWidgetProps {
 
   // Layout and positioning
   position?: WidgetPosition;
-  button?: ButtonStyle;
 
   // Theming
-  theme?: WidgetTheme;
+  theme?: Partial<WidgetTheme>;
 
   // Content customization
   title?: string;
@@ -68,8 +66,6 @@ export interface FeedbackWidgetProps {
   // Behavior
   showEmailOption?: boolean;
   showScreenshotOption?: boolean;
-  autoClose?: boolean;
-  debug?: boolean;
   environment?: string;
   baseUrl?: string;
 
@@ -84,7 +80,6 @@ export interface FeedbackWidgetProps {
 export interface FeedbackButtonProps {
   onClick: () => void;
   position: WidgetPosition;
-  button: ButtonStyle;
   theme: WidgetTheme;
   isOpen: boolean;
 }
