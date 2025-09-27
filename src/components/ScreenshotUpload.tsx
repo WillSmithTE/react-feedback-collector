@@ -98,7 +98,7 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
               Uploading...
             </>
           ) : (
-            <>📷 Screenshot</>
+            <>📷 Upload</>
           )}
         </button>
       </div>

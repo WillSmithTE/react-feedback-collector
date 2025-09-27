@@ -9,6 +9,7 @@ import {
   ScreenshotData,
 } from "../types";
 import { ScreenshotUpload } from "./ScreenshotUpload";
+import { getGradientEnd } from "../utils/colorUtils";
 
 // Local hook for focus trapping
 function useFocusTrap(containerRef: RefObject<HTMLElement>, enabled: boolean) {
@@ -164,7 +165,7 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
 
       setSubmitMessage({
         type: "success",
-        text: "Thank you for your feedback!",
+        text: "Thank you!",
       });
     } catch (error) {
       setSubmitMessage({
@@ -254,6 +255,18 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
             >
               {title}
             </h2>
+            {submitMessage && (
+              <div
+                className={`fb-msg fb-msg--header ${
+                  submitMessage.type === "success"
+                    ? "fb-msg--ok"
+                    : "fb-msg--err"
+                }`}
+              >
+                {submitMessage.type === "success" ? "✓" : "⚠"}{" "}
+                {submitMessage.text}
+              </div>
+            )}
             <button
               className="fb-close-btn"
               style={{ color: theme.text }}
@@ -264,17 +277,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
               ✕
             </button>
           </div>
-
-          {submitMessage && (
-            <div
-              className={`fb-msg fb-msg--overlay ${
-                submitMessage.type === "success" ? "fb-msg--ok" : "fb-msg--err"
-              }`}
-            >
-              {submitMessage.type === "success" ? "✓" : "⚠"}{" "}
-              {submitMessage.text}
-            </div>
-          )}
 
           <form onSubmit={handleFormSubmit} onKeyDown={handleKeyDown}>
             {/* Emoji Rating */}
@@ -429,11 +431,11 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
             {/* Submit Button */}
             <button
               className={`fb-sub ${!canSubmit ? "fb-sub--dis" : ""}`}
-              style={
-                canSubmit
-                  ? {}
-                  : { backgroundColor: theme.border, color: theme.text }
-              }
+              style={{
+                background: `linear-gradient(135deg, ${theme.primary}, ${getGradientEnd(theme.primary)})`,
+                color: '#ffffff',
+                ...(canSubmit ? {} : { opacity: 0.6, cursor: 'not-allowed' })
+              }}
               disabled={!canSubmit}
               aria-label="Submit"
               type="submit"

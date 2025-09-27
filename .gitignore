@@ -58,3 +58,4 @@ package-lock.json
 yarn.lock
 
 .gemini-clipboard
+bundle-analysis.html

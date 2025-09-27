@@ -88,6 +88,14 @@ const FEEDBACK_CSS = `
   border-radius: 6px;
 }
 
+.fb-msg--header {
+  font-size: 12px;
+  padding: 4px 8px;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
 .fb-msg--ok {
   background-color: #f0fdf4;
   border: 1px solid #bbf7d0;
@@ -103,8 +111,6 @@ const FEEDBACK_CSS = `
 .fb-sub {
   width: 100%;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #2563eb, #14b8a6);
-  color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 15px;
