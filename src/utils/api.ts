@@ -53,6 +53,10 @@ class FeedbackApiClient {
   setBaseUrl(url: string): void {
     this.baseUrl = url.replace(/\/$/, "");
   }
+
+  ping(): void {
+    fetch(`${this.baseUrl}/api/ping`, { signal: AbortSignal.timeout(5000) }).catch(() => {});
+  }
 }
 
 // Export singleton instance

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFeedbackApi } from "../hooks/useFeedbackApi";
 import { mergeTheme } from "../styles/themes";
 import {
@@ -6,6 +6,7 @@ import {
   FeedbackSubmission,
   FeedbackWidgetProps,
 } from "../types";
+import { FeedbackApiClient } from "../utils/api";
 import { injectFeedbackCSS } from "../utils/styles";
 import { FeedbackButton } from "./FeedbackButton";
 import { FeedbackPanel } from "./FeedbackPanel";
@@ -28,9 +29,11 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
+  const hasPingedRef = useRef(false);
 
   const theme = mergeTheme(customTheme);
   const { submitFeedback, isLoading, error } = useFeedbackApi(baseUrl);
+  const apiClientRef = useRef<FeedbackApiClient | null>(null);
 
   // Initialize widget - validate client ID and inject minimal styles
   useEffect(() => {
@@ -59,10 +62,15 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   }, [clientId, onError]);
 
   const handleOpen = () => {
-    setIsOpen(true);
-    if (onOpen) {
-      onOpen();
+    if (!hasPingedRef.current) {
+      hasPingedRef.current = true;
+      if (!apiClientRef.current) {
+        apiClientRef.current = new FeedbackApiClient(baseUrl);
+      }
+      apiClientRef.current.ping();
     }
+    setIsOpen(true);
+    onOpen?.();
   };
 
   const handleClose = () => {

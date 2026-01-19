@@ -57,7 +57,8 @@ export const ScreenshotUpload: React.FC<ScreenshotUploadProps> = ({
         // Add the new screenshot to the list
         onScreenshotsChange([...screenshots, result.screenshot]);
       }
-    } catch {
+    } catch (error) {
+      console.error("Screenshot upload failed:", error);
       setUploadError("Upload failed");
     } finally {
       setIsUploading(false);
