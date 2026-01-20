@@ -59,8 +59,5 @@ class FeedbackApiClient {
   }
 }
 
-// Export singleton instance
-export const apiClient = new FeedbackApiClient();
-
 // Export class for custom instances
 export { FeedbackApiClient };

@@ -76,7 +76,7 @@ export interface FeedbackWidgetProps {
   onClose?: () => void;
 }
 
-// Component props
+// Component props (internal)
 export interface FeedbackButtonProps {
   onClick: () => void;
   position: WidgetPosition;
@@ -98,40 +98,6 @@ export interface FeedbackPanelProps {
   clientId: string;
 }
 
-export interface FeedbackModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (data: FeedbackData) => Promise<void>;
-  title: string;
-  placeholder: string;
-  showEmailOption: boolean;
-  showScreenshotOption: boolean;
-  theme: WidgetTheme;
-  baseUrl: string;
-  clientId: string;
-}
-
-export interface EmojiSelectorProps {
-  selectedRating?: FeedbackRating;
-  onRatingSelect: (rating: FeedbackRating) => void;
-  theme: WidgetTheme;
-}
-
-export interface TextInputProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder: string;
-  theme: WidgetTheme;
-}
-
-export interface EmailCheckboxProps {
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-  email: string;
-  onEmailChange: (email: string) => void;
-  theme: WidgetTheme;
-}
-
 // API response types
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -151,18 +117,6 @@ export interface UseFeedbackApiReturn {
   error: Error | null;
 }
 
-export interface UseClickOutsideProps {
-  ref: React.RefObject<HTMLElement>;
-  callback: () => void;
-  enabled?: boolean;
-}
-
-export interface UseKeyboardProps {
-  onEscape?: () => void;
-  onEnter?: () => void;
-  enabled?: boolean;
-}
-
 // Utility types
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
@@ -171,16 +125,6 @@ export type DeepPartial<T> = {
 export interface ValidationResult {
   isValid: boolean;
   errors: string[];
-}
-
-// Style types for CSS-in-JS
-export interface StyleObject {
-  [key: string]: string | number | StyleObject;
-}
-
-export interface AnimationConfig {
-  duration: number;
-  easing: string;
 }
 
 // Constants

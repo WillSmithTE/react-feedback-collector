@@ -1,8 +1,5 @@
 import { FeedbackSubmission, ValidationResult } from "../types";
 
-/**
- * Validate a complete feedback submission
- */
 export function validateFeedbackSubmission(
   data: Partial<FeedbackSubmission>
 ): ValidationResult {
@@ -23,12 +20,8 @@ export function validateFeedbackSubmission(
     }
   }
 
-  if (data.shareEmail && data.userEmail) {
-    if (!data.userEmail) {
-      errors.push("Email required");
-    } else if (typeof data.userEmail !== "string") {
-      errors.push("Invalid email");
-    }
+  if (data.shareEmail && !data.userEmail) {
+    errors.push("Email required");
   }
 
   return {
@@ -37,17 +30,7 @@ export function validateFeedbackSubmission(
   };
 }
 
-/**
- * Sanitize user input to prevent XSS
- */
+const esc: Record<string, string> = {"<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","/":"&#x2F;"};
 export function sanitizeInput(input: string): string {
-  if (typeof input !== "string") return "";
-
-  return input
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;")
-    .replace(/\//g, "&#x2F;")
-    .trim();
+  return typeof input === "string" ? input.replace(/[<>"'/]/g, c => esc[c] || c).trim() : "";
 }

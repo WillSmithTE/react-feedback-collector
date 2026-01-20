@@ -1,14 +1,3 @@
-import { CSSProperties } from "react";
-
-const baseStyles = {
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
-  WebkitFontSmoothing: "antialiased" as const,
-  MozOsxFontSmoothing: "grayscale" as const,
-  boxSizing: "border-box" as const,
-};
-
-
 const FEEDBACK_CSS = `
 @keyframes spin {
   0% { transform: rotate(0deg); }
