@@ -1,23 +1,23 @@
 # FeedbackWidget Props
 
-| Prop                   | Type                               | Default                           | Description                                                                          |
-| ---------------------- | ---------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
-| `clientId`             | `string`                           | **Required**                      | Your unique client identifier.                                                       |
-| `position`             | `'right'` \| `'left'`              | `'right'`                         | Position of the feedback button.                                                     |
-| `button`               | `'semiCircle'`                     | `'semiCircle'`                    | Style of the trigger button.                                                         |
-| `theme`                | `WidgetTheme`                      | `{}`                              | Custom theme object to override default styles. See [Theming](#theming) for details. |
-| `title`                | `string`                           | `'Share Your Feedback'`           | Header title for the feedback form.                                                  |
-| `placeholder`          | `string`                           | `'Tell us what you think...'`     | Placeholder text for the comment textarea.                                           |
-| `showEmailOption`      | `boolean`                          | `true`                            | Whether to show the "Share your email" checkbox.                                     |
-| `showScreenshotOption` | `boolean`                          | `true`                            | Whether to show the screenshot upload option.                                        |
-| `autoClose`            | `boolean`                          | `true`                            | Whether to automatically close the widget after successful submission.               |
-| `debug`                | `boolean`                          | `false`                           | Enable debug logging to the console.                                                 |
-| `environment`          | `string`                           | `undefined`                       | Custom environment tag for your feedback (e.g., 'development', 'staging').           |
-| `baseUrl`              | `string`                           | `https://feedbee.willsmithte.com` | The base URL for the feedback API.                                                   |
-| `onSubmit`             | `(feedback: FeedbackData) => void` | `undefined`                       | Callback function triggered on successful submission.                                |
-| `onError`              | `(error: Error) => void`           | `undefined`                       | Callback function triggered on any error.                                            |
-| `onOpen`               | `() => void`                       | `undefined`                       | Callback function triggered when the widget opens.                                   |
-| `onClose`              | `() => void`                       | `undefined`                       | Callback function triggered when the widget closes.                                  |
+| Prop                   | Type                               | Default                       | Description                                                                          |
+| ---------------------- | ---------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
+| `clientId`             | `string`                           | **Required**                  | Your unique client identifier.                                                       |
+| `position`             | `'right'` \| `'left'`              | `'right'`                     | Position of the feedback button.                                                     |
+| `button`               | `'semiCircle'`                     | `'semiCircle'`                | Style of the trigger button.                                                         |
+| `theme`                | `WidgetTheme`                      | `{}`                          | Custom theme object to override default styles. See [Theming](#theming) for details. |
+| `title`                | `string`                           | `'Share Your Feedback'`       | Header title for the feedback form.                                                  |
+| `placeholder`          | `string`                           | `'Tell us what you think...'` | Placeholder text for the comment textarea.                                           |
+| `showEmailOption`      | `boolean`                          | `true`                        | Whether to show the "Share your email" checkbox.                                     |
+| `showScreenshotOption` | `boolean`                          | `true`                        | Whether to show the screenshot upload option.                                        |
+| `autoClose`            | `boolean`                          | `true`                        | Whether to automatically close the widget after successful submission.               |
+| `debug`                | `boolean`                          | `false`                       | Enable debug logging to the console.                                                 |
+| `environment`          | `string`                           | `undefined`                   | Custom environment tag for your feedback (e.g., 'development', 'staging').           |
+| `baseUrl`              | `string`                           | `https://usero.io`            | The base URL for the feedback API.                                                   |
+| `onSubmit`             | `(feedback: FeedbackData) => void` | `undefined`                   | Callback function triggered on successful submission.                                |
+| `onError`              | `(error: Error) => void`           | `undefined`                   | Callback function triggered on any error.                                            |
+| `onOpen`               | `() => void`                       | `undefined`                   | Callback function triggered when the widget opens.                                   |
+| `onClose`              | `() => void`                       | `undefined`                   | Callback function triggered when the widget closes.                                  |
 
 ## Using Your Own Backend
 

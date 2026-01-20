@@ -149,7 +149,7 @@ export const EMOJI_BACKGROUNDS: Record<FeedbackRating, string> = {
   4: "linear-gradient(135deg,#f59e0b14,#f59e0b1f)",
 };
 
-export const DEFAULT_API_URL = "https://feedbee.willsmithte.com";
+export const DEFAULT_API_URL = "https://usero.io";
 
 export const Z_INDEX = {
   BUTTON: 9998,

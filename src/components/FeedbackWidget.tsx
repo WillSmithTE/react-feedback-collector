@@ -142,7 +142,7 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         showScreenshotOption={showScreenshotOption}
         theme={theme}
         position={position}
-        baseUrl={baseUrl || "https://feedbee.willsmithte.com"}
+        baseUrl={baseUrl || "https://usero.io"}
         clientId={clientId}
       />
     </div>

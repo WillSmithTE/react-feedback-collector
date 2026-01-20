@@ -1,6 +1,6 @@
 # React Feedback Collector
 
-A lightweight React component for collecting user feedback with emoji ratings. Hook up your own backend or use [Feedbee](https://feedbee.willsmithte.com) for tracking and insights out of the box.
+A lightweight React component for collecting user feedback with emoji ratings. Hook up your own backend or use [Usero](https://usero.io) for tracking and insights out of the box.
 
 ![Screenshot](https://raw.githubusercontent.com/willsmithte/react-feedback-collector/main/screenshots/both-devices-without-background.png)
 
@@ -14,7 +14,7 @@ A lightweight React component for collecting user feedback with emoji ratings. H
 
 ### 1. Get Your Client Id
 
-Visit **[feedbee.willsmithte.com](https://feedbee.willsmithte.com)** to get your unique `clientId` for **free**
+Visit **[usero.io](https://usero.io)** to get your unique `clientId` for **free**
 
 ### 2. Install the Package
 
@@ -38,7 +38,7 @@ import { FeedbackWidget } from "react-feedback-collector";
 
 ### 4. View Your Feedback
 
-All feedback appears instantly in your dashboard at **[feedbee.willsmithte.com](https://feedbee.willsmithte.com)**
+All feedback appears instantly in your dashboard at **[usero.io](https://usero.io)**
 
 ## Usage
 
