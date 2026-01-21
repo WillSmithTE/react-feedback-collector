@@ -167,6 +167,12 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
         type: "success",
         text: "Thank you!",
       });
+
+      // Clear form but keep panel open
+      setSelectedRating(undefined);
+      setComment("");
+      setShareEmail(false);
+      setScreenshots([]);
     } catch (error) {
       setSubmitMessage({
         type: "error",
@@ -227,7 +233,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
         />
       )}
 
-      {/* Panel */}
       <div
         ref={panelRef}
         className={panelClasses}
@@ -243,7 +248,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
         aria-labelledby="feedback-title"
       >
         <div className="fb-cnt">
-          {/* Header */}
           <div
             className="fb-hdr"
             style={{ borderBottom: `1px solid ${theme.border}` }}
@@ -279,7 +283,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
           </div>
 
           <form onSubmit={handleFormSubmit} onKeyDown={handleKeyDown}>
-            {/* Emoji Rating */}
             <div>
               <div
                 className="fb-es"
@@ -340,56 +343,57 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
               </div>
             </div>
 
-            {/* Comment Input */}
             <div>
-              <div>
-                <textarea
-                  className="fb-ta"
-                  style={{
-                    border: `1px solid ${theme.border}`,
-                    color: theme.text,
-                    backgroundColor: theme.background,
-                  }}
-                  value={comment}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    if (newValue.length <= 1000) {
-                      setComment(newValue);
-                    }
-                  }}
-                  placeholder={placeholder}
-                  aria-label="Comments"
-                  maxLength={1000}
-                  rows={3}
-                />
+              <textarea
+                className="fb-ta"
+                style={{
+                  border: `1px solid ${theme.border}`,
+                  color: theme.text,
+                  backgroundColor: theme.background,
+                }}
+                value={comment}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  if (newValue.length <= 1000) {
+                    setComment(newValue);
+                  }
+                }}
+                placeholder={placeholder}
+                aria-label="Comments"
+                maxLength={1000}
+                rows={2}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  marginBottom: "8px",
+                  gap: "12px",
+                }}
+              >
+                {showScreenshotOption && (
+                  <ScreenshotUpload
+                    screenshots={screenshots}
+                    onScreenshotsChange={setScreenshots}
+                    theme={theme}
+                    baseUrl={baseUrl}
+                    clientId={clientId}
+                  />
+                )}
                 <div
                   style={{
                     fontSize: "12px",
                     color: lowChars ? "#dc2626" : theme.text,
                     opacity: lowChars ? 1 : 0.6,
-                    textAlign: "right",
-                    marginTop: "4px",
+                    marginLeft: showScreenshotOption ? undefined : "auto",
                   }}
                 >
-                  {remaining} characters remaining
+                  {remaining} chars remaining
                 </div>
               </div>
             </div>
 
-            {/* Screenshot Upload */}
-            {showScreenshotOption && (
-              <div>
-                <ScreenshotUpload
-                  screenshots={screenshots}
-                  onScreenshotsChange={setScreenshots}
-                  theme={theme}
-                  baseUrl={baseUrl}
-                  clientId={clientId}
-                />
-              </div>
-            )}
-
-            {/* Email Option */}
             {showEmailOption && (
               <div className="fb-email">
                 <label className="fb-email-lbl" style={{ color: theme.text }}>
@@ -428,7 +432,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               className={`fb-sub ${!canSubmit ? "fb-sub--dis" : ""}`}
               style={{

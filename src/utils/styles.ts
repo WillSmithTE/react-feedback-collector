@@ -13,7 +13,7 @@ const FEEDBACK_CSS = `
 
 .fb-ec {
   border-radius: 16px;
-  padding: 5px;
+  padding: 0 5px;
   transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   border: 3px solid transparent;
   cursor: pointer;
@@ -63,7 +63,7 @@ const FEEDBACK_CSS = `
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
+  padding-bottom: 4px;
   margin-bottom: 10px;
 }
 
@@ -127,7 +127,11 @@ const FEEDBACK_CSS = `
 }
 
 .fb-up {
-  margin-bottom: 16px;
+  margin-bottom: 0;
+}
+
+.fb-up-extras {
+  margin-top: 8px;
 }
 
 .fb-upb {
@@ -416,7 +420,7 @@ const FEEDBACK_CSS = `
   .fb-pnl-base {
     width: 100% !important;
     max-width: none !important;
-    top: 10vh !important;
+    top: 5vh !important;
     max-height: 70vh !important;
   }
 
@@ -470,5 +474,4 @@ export const injectFeedbackCSS = () => {
   style.id = styleId;
   style.textContent = FEEDBACK_CSS;
   document.head.appendChild(style);
-
 };
