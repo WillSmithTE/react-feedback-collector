@@ -1,5 +1,7 @@
 # React Feedback Collector
 
+[![npm version](https://img.shields.io/npm/v/react-feedback-collector.svg)](https://www.npmjs.com/package/react-feedback-collector)
+
 A lightweight React component for collecting user feedback with emoji ratings. Hook up your own backend or use [Usero](https://usero.io) for tracking and insights out of the box.
 
 ![Screenshot](https://raw.githubusercontent.com/willsmithte/react-feedback-collector/main/screenshots/both-devices-without-background.png)
