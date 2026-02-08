@@ -11,6 +11,10 @@
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js",
       "types": "./dist/index.d.ts"
+    },
+    "./standalone": {
+      "import": "./dist/standalone.esm.js",
+      "default": "./dist/standalone.umd.js"
     }
   },
   "files": [
@@ -20,7 +24,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "npm run clean && vite build && tsc --emitDeclarationOnly --outDir dist",
+    "build": "npm run clean && vite build && vite build --config vite.config.standalone.ts && tsc --emitDeclarationOnly --outDir dist",
+    "build:standalone": "vite build --config vite.config.standalone.ts",
     "dev": "vite build --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -41,7 +46,10 @@
     "rating",
     "component",
     "user-experience",
-    "analytics"
+    "analytics",
+    "web-component",
+    "vanilla-js",
+    "standalone"
   ],
   "author": "Will Smith <will@willsmithte.com>",
   "license": "MIT",
@@ -83,5 +91,8 @@
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "preact": "^10.28.3"
   }
 }
