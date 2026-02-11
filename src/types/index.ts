@@ -21,7 +21,6 @@ export interface FeedbackSubmission {
   clientId: string;
   rating: FeedbackRating;
   comment?: string;
-  shareEmail: boolean;
   userEmail?: string;
   pageUrl: string;
   pageTitle: string;
@@ -33,7 +32,6 @@ export interface FeedbackSubmission {
 export interface FeedbackData {
   rating: FeedbackRating;
   comment?: string;
-  shareEmail: boolean;
   userEmail?: string;
   screenshots?: ScreenshotData[];
   metadata: FeedbackMetadata;

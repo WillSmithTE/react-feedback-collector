@@ -139,7 +139,6 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
       const feedbackData: FeedbackData = {
         rating: selectedRating,
         comment: comment.trim() || undefined,
-        shareEmail,
         userEmail: shareEmail ? localEmail : undefined,
         screenshots: screenshots.length > 0 ? screenshots : undefined,
         metadata: {

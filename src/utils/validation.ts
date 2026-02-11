@@ -20,10 +20,6 @@ export function validateFeedbackSubmission(
     }
   }
 
-  if (data.shareEmail && !data.userEmail) {
-    errors.push("Email required");
-  }
-
   return {
     isValid: errors.length === 0,
     errors,

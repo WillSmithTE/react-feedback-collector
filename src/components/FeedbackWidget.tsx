@@ -72,6 +72,15 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
     }
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
   const handleSubmit = async (feedbackData: FeedbackData) => {
     try {
       // Prepare submission data
@@ -79,7 +88,6 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         clientId,
         rating: feedbackData.rating,
         comment: feedbackData.comment,
-        shareEmail: feedbackData.shareEmail,
         userEmail: feedbackData.userEmail,
         pageUrl: feedbackData.metadata.pageUrl,
         pageTitle: feedbackData.metadata.pageTitle,
