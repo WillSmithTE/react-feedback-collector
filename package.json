@@ -1,6 +1,6 @@
 {
   "name": "react-feedback-collector",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "React component for collecting user feedback with emoji ratings",
   "type": "module",
   "main": "dist/index.cjs.js",

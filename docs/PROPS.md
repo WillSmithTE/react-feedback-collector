@@ -14,6 +14,7 @@
 | `debug`                | `boolean`                          | `false`                       | Enable debug logging to the console.                                                 |
 | `environment`          | `string`                           | `undefined`                   | Custom environment tag for your feedback (e.g., 'development', 'staging').           |
 | `baseUrl`              | `string`                           | `https://usero.io`            | The base URL for the feedback API.                                                   |
+| `metadata`             | `Record<string, unknown>`          | `undefined`                   | Arbitrary key-value data attached to each feedback submission (e.g., user ID, plan, session). |
 | `onSubmit`             | `(feedback: FeedbackData) => void` | `undefined`                   | Callback function triggered on successful submission.                                |
 | `onError`              | `(error: Error) => void`           | `undefined`                   | Callback function triggered on any error.                                            |
 | `onOpen`               | `() => void`                       | `undefined`                   | Callback function triggered when the widget opens.                                   |
@@ -45,6 +46,7 @@ interface FeedbackSubmission {
   referrer?: string;
   environment?: string;
   screenshots?: ScreenshotData[]; // Included if screenshots are uploaded
+  metadata?: Record<string, unknown>; // Arbitrary key-value data from the metadata prop
 }
 
 interface ScreenshotData {

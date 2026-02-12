@@ -21,6 +21,7 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   showScreenshotOption = true,
   environment,
   baseUrl,
+  metadata,
   onSubmit,
   onError,
   onOpen,
@@ -95,6 +96,9 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         environment,
         screenshots: feedbackData.screenshots,
       };
+      if (metadata !== undefined) {
+        submissionData.metadata = metadata;
+      }
 
       // Submit to API
       const response = await submitFeedback(submissionData);

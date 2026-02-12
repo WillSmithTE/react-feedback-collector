@@ -27,6 +27,7 @@ export interface FeedbackSubmission {
   referrer?: string;
   environment?: string;
   screenshots?: ScreenshotData[];
+  metadata?: Record<string, unknown>;
 }
 
 export interface FeedbackData {
@@ -66,6 +67,9 @@ export interface FeedbackWidgetProps {
   showScreenshotOption?: boolean;
   environment?: string;
   baseUrl?: string;
+
+  // Data
+  metadata?: Record<string, unknown>;
 
   // Event handlers
   onSubmit?: (feedback: FeedbackData) => void;

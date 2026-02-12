@@ -8,7 +8,7 @@ A lightweight React component for collecting user feedback with emoji ratings. H
 
 ## Features
 
-- 🎭 **3-emoji rating system** (😞 😐 😊) with optional comments
+- 🎭 **4-emoji rating system** (😞 😐 😊 🤩) with optional comments
 - 🚀 **Zero setup** - no backend required
 - 📱 **Mobile responsive** with accessible design
 
@@ -62,6 +62,21 @@ All feedback appears instantly in your dashboard at **[usero.io](https://usero.i
 />
 ```
 
+### With Metadata
+
+Attach arbitrary data to each feedback submission, such as user info or session context:
+
+```tsx
+<FeedbackWidget
+  clientId="your-client-id"
+  metadata={{
+    userId: user.id,
+    plan: "pro",
+    sessionId: "abc-123",
+  }}
+/>
+```
+
 ## Props
 
 | Prop       | Type                  | Default                 | Description                         |
@@ -69,5 +84,10 @@ All feedback appears instantly in your dashboard at **[usero.io](https://usero.i
 | `clientId` | `string`              | **Required**            | Your unique client identifier.      |
 | `position` | `'right'` \| `'left'` | `'right'`               | Position of the feedback button.    |
 | `title`    | `string`              | `'Share Your Feedback'` | Header title for the feedback form. |
+| `metadata` | `Record<string, unknown>` | `undefined`         | Arbitrary key-value data attached to each feedback submission (e.g., user ID, plan, session). |
 
 For a full list of available props, see the [Props documentation](https://github.com/willsmithte/react-feedback-collector/blob/main/docs/PROPS.md).
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release notes.
