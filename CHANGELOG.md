@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.34]
+
+### Changed
+- Rating and comment are now both optional — user must provide at least one
+
 ## [1.0.33]
 
 ### Added

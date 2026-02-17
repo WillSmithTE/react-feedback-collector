@@ -19,7 +19,7 @@ export interface ScreenshotData {
 
 export interface FeedbackSubmission {
   clientId: string;
-  rating: FeedbackRating;
+  rating?: FeedbackRating;
   comment?: string;
   userEmail?: string;
   pageUrl: string;
@@ -31,7 +31,7 @@ export interface FeedbackSubmission {
 }
 
 export interface FeedbackData {
-  rating: FeedbackRating;
+  rating?: FeedbackRating;
   comment?: string;
   userEmail?: string;
   screenshots?: ScreenshotData[];

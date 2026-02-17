@@ -124,7 +124,7 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
     }
   }, [isOpen, userEmail]);
 
-  const canSubmit = selectedRating !== undefined && !isSubmitting;
+  const canSubmit = !isSubmitting;
   const remaining = 1000 - comment.length;
   const lowChars = remaining < 50;
 
@@ -438,7 +438,7 @@ export const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
                 color: '#ffffff',
                 ...(canSubmit ? {} : { opacity: 0.6, cursor: 'not-allowed' })
               }}
-              disabled={!canSubmit}
+              disabled={isSubmitting}
               aria-label="Submit"
               type="submit"
             >
